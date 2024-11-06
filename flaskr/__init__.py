@@ -24,11 +24,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+
+#/flaskr/db.py database initialization & connection
     from . import db
     db.init_app(app)
 
-#/flaskr/auth.py blueprint
+
+#/flaskr/auth.py blueprint includes: register, login, logout, auth checks on requests.
     from . import auth
     app.register_blueprint(auth.bp)
+
 
     return app
