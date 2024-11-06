@@ -1,3 +1,7 @@
+# INF601 - Programming in Python
+# Stephen Blomberg
+# Mini Project 3
+
 import os
 
 from flask import Flask
