@@ -24,12 +24,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, Cruel World!'
-
     from . import db
     db.init_app(app)
+
+#/flaskr/auth.py blueprint
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     return app
