@@ -34,5 +34,12 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+#/flaskr/blog.py blueprint includes: create,
+    from . import blog
+    app.register_blueprint(blog.bp)
+    #adds an index endpoint
+    app.add_url_rule('/', endpoint='index')
+
+
 
     return app
