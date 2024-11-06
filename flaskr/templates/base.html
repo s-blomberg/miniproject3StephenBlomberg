@@ -1,0 +1,28 @@
+<!doctype html>
+<title>{% block title %}Vinyl Vault - Index{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<nav>
+  <h1>Vinyl Vault</h1>
+  <ul>
+    {% if g.user %} <!-- grab user id from session cookie -->
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+
+<section class="content">
+  <header>
+    {% block header %}<!-- displays the view html header here-->{% endblock %}
+  </header>
+
+    <!-- displays error messages -->
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}<!-- displays the view html content here -->{% endblock %}
+</section>
