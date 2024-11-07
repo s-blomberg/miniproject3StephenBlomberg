@@ -21,12 +21,12 @@ pip install -r requirement.txt
 
 ### Executing program
 
-To initialize the database:
+To initialize the database, run in your terminal:
 ```
 flask --app flaskr init-db 
 ```
 
-To spin the server up:
+To spin the server up, run in your terminal:
 ```
 flask --app flaskr run
 ```
