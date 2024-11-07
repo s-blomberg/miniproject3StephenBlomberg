@@ -16,7 +16,7 @@ This project will be using Flask to deploy a small web app called Vinyl Vault to
 Will download all requirements to your virtual environment.
 
 ```
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ### Executing program
