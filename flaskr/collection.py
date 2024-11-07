@@ -101,8 +101,7 @@ def get_album(id, check_user=True):
 
     return album
 
-# function to grab album by id, delete and commit to db
-@bp.route('/<int:id>/delete', methods=('POST',))
+@bp.route('/collection/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
     get_album(id)
@@ -111,6 +110,5 @@ def delete(id):
     db.commit()
     return redirect(url_for('collection.index'))
 
-    return album
 
 

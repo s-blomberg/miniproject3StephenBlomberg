@@ -11,13 +11,41 @@
                 <h5>{{ album['title'] }} by {{ album['artist'] }}</h5>
                 <p>Released in {{ album['release_year'] }} | Variant: {{ album['variant'] }}</p>
                 <a class="btn btn-secondary btn-sm" href="{{ url_for('collection.update', id=album['id']) }}">Edit</a>
-                <form method="post" action="{{ url_for('collection.delete', id=album['id']) }}" style="display: inline;">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                </form>
+
+                <!-- Delete Button to Trigger Modal -->
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"
+                        data-album-id="{{ album['id'] }}">
+                    Delete
+                </button>
             </div>
         {% endfor %}
     </div>
 {% else %}
     <p>You don't have any albums in your collection yet.</p>
 {% endif %}
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to remove this album from your collection?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                <!-- Form to Submit Deletion -->
+                <form id="deleteForm" method="post">
+                    <button type="submit" class="btn btn-danger">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
