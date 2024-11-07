@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Edit "{{ post['title'] }}"{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-  <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title"
-      value="{{ request.form['title'] or post['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
-    <input type="submit" value="Save">
-  </form>
-  <hr>
-  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-  </form>
+<h1>Edit Album</h1>
+<form method="post">
+    <div class="form-group">
+        <label for="title">Album Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ album['title'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="artist">Artist</label>
+        <input type="text" class="form-control" id="artist" name="artist" value="{{ album['artist'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="release_year">Release Year</label>
+        <input type="number" class="form-control" id="release_year" name="release_year" value="{{ album['release_year'] }}">
+    </div>
+    <div class="form-group">
+        <label for="variant">Variant</label>
+        <input type="text" class="form-control" id="variant" name="variant" value="{{ album['variant'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Update Album</button>
+</form>
 {% endblock %}

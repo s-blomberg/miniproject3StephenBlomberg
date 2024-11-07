@@ -1,28 +1,23 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Collection - Home{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('collection.create') }}">Add Album</a>
-  {% endif %}
-{% endblock %}
-
 {% block content %}
-  {% for album in albums %}
-    <article class="album">
-      <header>
-        <div>
-          <h1>{{ album['title'] }}</h1>
-          <div class="about">by {{ album['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['user_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+<h1>Your Album Collection</h1>
+<a class="btn btn-primary mb-3" href="{{ url_for('collection.create') }}">Add Album</a>
+
+{% if albums %}
+    <div class="list-group">
+        {% for album in albums %}
+            <div class="list-group-item">
+                <h5>{{ album['title'] }} by {{ album['artist'] }}</h5>
+                <p>Released in {{ album['release_year'] }} | Variant: {{ album['variant'] }}</p>
+                <a class="btn btn-secondary btn-sm" href="{{ url_for('collection.update', id=album['id']) }}">Edit</a>
+                <form method="post" action="{{ url_for('collection.delete', id=album['id']) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You don't have any albums in your collection yet.</p>
+{% endif %}
 {% endblock %}

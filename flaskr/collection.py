@@ -9,7 +9,7 @@ from flaskr.db import get_db
 
 bp = Blueprint('collection', __name__)
 
-#view for collection index, accesses the db, fetches all albums, puts into list and loops.
+#view for index, accesses the db, fetches all albums, puts into list and loops.
 @bp.route('/')
 @login_required
 def index():
@@ -85,7 +85,23 @@ def update(id):
 
     return render_template('collection/update.html', album=album)
 
-#function to grab album by id, delete and commit to db
+
+
+#function to retrieve album from db and view by id
+def get_album(id, check_user=True):
+    album = get_db().execute(
+        'SELECT * FROM albums WHERE id = ?', (id,)
+    ).fetchone()
+
+    if album is None:
+        abort(404, f"Album id {id} doesn't exist.")
+
+    if check_user and album['user_id'] != g.user['id']:
+        abort(403)
+
+    return album
+
+# function to grab album by id, delete and commit to db
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
@@ -94,19 +110,6 @@ def delete(id):
     db.execute('DELETE FROM albums WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('collection.index'))
-
-#function to retrieve album from db and view by id
-def get_album(id, check_user=True):
-    album = get_db().execute(
-        'SELECT * FROM albums WHERE id = ?', (id,)
-        (id,)
-    ).fetchone()
-
-    if album is None:
-        abort(404, f"Album id {id} doesn't exist.")
-
-    if check_user and album['user_id'] != g.user['id']:
-        abort(403)
 
     return album
 
