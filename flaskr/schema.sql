@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS albums;
+DROP TABLE IF EXISTS collection;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -7,13 +7,12 @@ CREATE TABLE user (
   password TEXT NOT NULL
 );
 
-CREATE TABLE albums (
+CREATE TABLE collection (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   artist TEXT NOT NULL,
   release_year INTEGER,
-  genre TEXT,
   variant TEXT NOT NULL,
   user_id INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES user (id)
 );

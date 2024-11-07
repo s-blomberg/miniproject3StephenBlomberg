@@ -6,7 +6,7 @@ import os
 from flask import Flask
 
 
-# create and configure the app
+# create and configure the app factory
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -27,23 +27,20 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-
-#/flaskr/db.py database initialization & connection
+    #/flaskr/db.py database initialization & connection
     from . import db
     db.init_app(app)
 
-
-#/flaskr/auth.py blueprint includes: register, login, logout, auth checks
+    #/flaskr/auth.py blueprint includes: register, login, logout, auth checks
     from . import auth
     app.register_blueprint(auth.bp)
 
+    #/flaskr/collection.py blueprint includes: create, view, update, delete
+    from . import collection
+    app.register_blueprint(collection.bp)
 
-#/flaskr/blog.py blueprint includes: create, get post, update, delete
-    from . import blog
-    app.register_blueprint(blog.bp)
-    #adds an index endpoint
+    #set default route to collection index
     app.add_url_rule('/', endpoint='index')
-
 
 
     return app
