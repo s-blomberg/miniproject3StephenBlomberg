@@ -4,9 +4,9 @@
 <h1>Your Album Collection</h1>
 <a class="btn btn-primary mb-3" href="{{ url_for('collection.create') }}">Add Album</a>
 
-{% if albums %}
+{% if collection %}
     <div class="list-group">
-        {% for album in albums %}
+        {% for album in collection %}
             <div class="list-group-item">
                 <h5>{{ album['title'] }} by {{ album['artist'] }}</h5>
                 <p>Released in {{ album['release_year'] }} | Variant: {{ album['variant'] }}</p>

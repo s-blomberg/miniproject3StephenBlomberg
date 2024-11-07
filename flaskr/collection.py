@@ -14,14 +14,14 @@ bp = Blueprint('collection', __name__)
 @login_required
 def index():
     db = get_db()
-    albums = db.execute(
+    collection = db.execute(
         'SELECT a.id, title, artist, release_year, variant'
-        ' FROM albums a JOIN user u ON a.user_id = u.id'
+        ' FROM collection a JOIN user u ON a.user_id = u.id'
         ' WHERE u.id = ?'
         ' ORDER BY title',
         (g.user['id'],)
     ).fetchall()
-    return render_template('collection/index.html', albums=albums)
+    return render_template('collection/index.html', collection=collection)
 
 #view for adding a new album
 @bp.route('/create', methods=('GET', 'POST'))
@@ -43,7 +43,7 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO albums (title, artist, release_year, variant, user_id)'
+                'INSERT INTO collection (title, artist, release_year, variant, user_id)'
                 ' VALUES (?, ?, ?, ?, ?)',
                 (title, artist, release_year, variant, g.user['id'])
             )
@@ -76,7 +76,7 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE albums SET title = ?, artist = ?, release_year = ?, variant = ?'
+                'UPDATE collection SET title = ?, artist = ?, release_year = ?, variant = ?'
                 ' WHERE id = ?',
                 (title, artist, release_year, variant, id)
             )
@@ -90,7 +90,7 @@ def update(id):
 #function to retrieve album from db and view by id
 def get_album(id, check_user=True):
     album = get_db().execute(
-        'SELECT * FROM albums WHERE id = ?', (id,)
+        'SELECT * FROM collection WHERE id = ?', (id,)
     ).fetchone()
 
     if album is None:
@@ -106,7 +106,7 @@ def get_album(id, check_user=True):
 def delete(id):
     get_album(id)
     db = get_db()
-    db.execute('DELETE FROM albums WHERE id = ?', (id,))
+    db.execute('DELETE FROM collection WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('collection.index'))
 
