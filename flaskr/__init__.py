@@ -3,12 +3,11 @@
 # Mini Project 3
 
 import os
-
 from flask import Flask
 
 
+# create and configure the app factory
 def create_app(test_config=None):
-    # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -28,22 +27,20 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-
-#/flaskr/db.py database initialization & connection
+    #/flaskr/db.py database initialization & connection
     from . import db
     db.init_app(app)
 
-
-#/flaskr/auth.py blueprint includes: register, login, logout, auth checks on requests.
+    #/flaskr/auth.py blueprint includes: register, login, logout, auth checks
     from . import auth
     app.register_blueprint(auth.bp)
 
-#/flaskr/blog.py blueprint includes: create,
-    from . import blog
-    app.register_blueprint(blog.bp)
-    #adds an index endpoint
-    app.add_url_rule('/', endpoint='index')
+    #/flaskr/collection.py blueprint includes: create, view, update, delete
+    from . import collection
+    app.register_blueprint(collection.bp)
 
+    #set default route to collection index
+    app.add_url_rule('/', endpoint='index')
 
 
     return app

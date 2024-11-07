@@ -3,17 +3,12 @@
 # Mini Project 3
 
 import functools
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from flaskr.db import get_db
 
 #/auth
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-
 
 
 #/auth/register
@@ -69,7 +64,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('collection.index'))
 
         flash(error)
 
@@ -81,7 +76,7 @@ def login():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
 
 
 
