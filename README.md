@@ -13,19 +13,29 @@ This project will be using Flask to deploy a small web app called Vinyl Vault to
 
 ### Dependencies
 
+Will download all requirements to your virtual environment.
+
 ```
 pip install -r requirement.txt
 ```
 
 ### Executing program
 
+To initialize the database:
 ```
-python main.py
+flask --app flaskr init-db 
 ```
+
+To spin the server up:
+```
+flask --app flaskr run
+```
+
+Visit http://127.0.0.1:5000/ in your browser
 
 ### Output
 
-This web-app should allow users to create a personal account, add albums owned, wishlist albums, and track their collection value.
+This web-app allows users to create an account, add, edit, & remove albums to their vinyl collection.
 
 ## Authors
 
@@ -34,6 +44,8 @@ Stephen Blomberg
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-* [Flask](https://flask.palletsprojects.com/en/3.0.x/tutorial/templates/)
-* [ChatGPT](https://chatgpt.com/share/66f2f3f2-576c-8002-a1d0-db78dc44ef34)
 * [Jason Zeller](https://www.youtube.com/@profzeller)
+* [Flask](https://flask.palletsprojects.com/en/3.0.x/tutorial/templates/)
+* [Jinja](https://jinja.palletsprojects.com/en/stable/)
+* [Bootstrap](https://getbootstrap.com/)
+* [ChatGPT](https://chatgpt.com/share/672ceb52-2d48-8002-a176-5bbbc687c8ff)
